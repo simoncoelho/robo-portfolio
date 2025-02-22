@@ -34,8 +34,8 @@ function App() {
           <EffectComposer>
             <Bloom
               luminanceThreshold={0}
-              luminanceSmoothing={.9}
-              intensity={10}
+              luminanceSmoothing={1}
+              intensity={5}
             />
           </EffectComposer>
         </Canvas>
