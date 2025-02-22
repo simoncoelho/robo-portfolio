@@ -3,11 +3,11 @@
   <!-- Materials -->
 
   <material name="white">
-    <color rgba="1 1 1 1"/>
+    <color rgba="1 1 1 .5"/> <!-- Gold color -->
   </material>
 
   <material name="aluminum">
-    <color rgba="0.6 0.6 0.6 1"/>
+    <color rgba="1 .3 0 .51"/>
   </material>
 
   <!-- Links -->
