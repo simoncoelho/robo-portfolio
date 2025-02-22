@@ -1,23 +1,22 @@
-/* Ensure the entire viewport is used */
+/* General layout */
 html, body, #root {
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
-/* Flex layout for header and viewer */
 .app-container {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-/* Header styling */
 .header {
   background-color: #333;
   color: #fff;
   padding: 1rem;
 }
+
 .header nav ul {
   list-style: none;
   display: flex;
@@ -25,25 +24,24 @@ html, body, #root {
   margin: 0;
   padding: 0;
 }
+
 .header nav ul li a {
   color: #fff;
   text-decoration: none;
 }
 
-/* Viewer styling: the canvas will fill the remaining space */
+/* Viewer styling */
 .viewer {
   flex: 1;
   position: relative;
 }
 
-/* Make sure the canvas fills the viewer */
 .viewer canvas {
   width: 100% !important;
   height: 100% !important;
   display: block;
 }
 
-/* Optional toggle button styling */
 .toggle-button {
   position: absolute;
   bottom: 20px;
