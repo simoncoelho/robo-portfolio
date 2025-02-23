@@ -9,15 +9,17 @@ import "./App.css";
 function App() {
     // Poses
     const poseA = { J1: 0,    J2: 0,   J3: 0.2,   J4: 0,   J5: 0,   J6: 0 };
-    const poseB = { J1: 0.5,  J2: 1.0, J3: 0.16, J4: 0.75, J5: 0.02, J6: 0.8 };
-    const poseC = { J1: 0.3, J2: 0.8, J3: 0.0,  J4: -1.0, J5: 0.065, J6: -0.2 };
+    const poseB = { J1: 0.5,  J2: 1.0, J3: 0.16, J4: 0.75, J6: 0.8 };
+    const poseC = { J1: 0.3, J2: 0.8, J3: 0.0,  J4: -1.0, J6: -0.2 };
+    const closeGripper = { J5: 0.03};
+    const openGripper = { J5: 0.065};
     
   
     const [poseSequence, setPoseSequence] = useState([]);
   
     const handleStartSequence = () => {
       // Pass the entire array directly to RobotModel
-      setPoseSequence([poseA, poseB, poseC, poseA, poseC]);
+      setPoseSequence([poseA, openGripper, poseB, poseC, closeGripper, poseA, openGripper, poseC]);
     };
   
   // Called when the last pose finishes

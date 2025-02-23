@@ -17,7 +17,7 @@ class PoseSequenceRunner {
     
     // Tweak as needed:
     this.lerpFactor = 0.01;  // bigger = faster movement
-    this.threshold = 0.1;   // bigger = easier to consider "close enough"
+    this.threshold = 0.001;   // bigger = easier to consider "close enough"
     this.requiredStableFrames = 2; // number of consecutive stable frames
     this.framesStable = 0;   // how many frames we've been in range consecutively
   }
