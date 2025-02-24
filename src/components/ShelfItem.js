@@ -14,8 +14,8 @@ export default function ShelfItem({ title, position = [0, 0, 0], onItemClick }) 
   const groupRef = useRef();
 
   // Load geometry with STLLoader
-  const geometry = useLoader(STLLoader, process.env.PUBLIC_URL + "/assets/12wellplate_base.stl"); 
-
+  useLoader(STLLoader, '/robo-portfolio/assets/12wellplate_base.stl');
+  
   // Optional: set a default material, or pass as a prop if you want
   const material = new THREE.MeshStandardMaterial({
     color: 0xff0000,
