@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sphere } from "@react-three/drei";
-import { Bloom, EffectComposer, Glitch } from "@react-three/postprocessing";
 import Shelves from "./components/Shelves"; // optional component, remove if you don’t need it
 import RobotModel from "./components/RobotModel";
 import "./App.css";
