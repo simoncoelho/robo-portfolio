@@ -50,7 +50,9 @@ function App() {
       <HeaderBar />
 
       <div className="viewer">
-        <Canvas camera={{ position: [0, .7, 5], fov: 60, }} style={{ background: "#000" } }>
+        <Canvas 
+          camera={{ position: [-3, 2, 4], fov: 30, }} 
+          style={{ background: "#000" } }>
           {/* OrbitControls with no autoRotate */}
           <OrbitControls 
             autoRotate={false}
