@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import * as THREE from "three";
 import ShelfItem from "./ShelfItem";
 
-export default function Shelves({onBoxClick}) {
+export default function Shelves({onItemClick}) {
   // Create your shelf geometry once
   const shelfGeometry = useMemo(() => {
     const geo = new THREE.BoxGeometry(50, 0.05, 0.5);
@@ -31,8 +31,8 @@ export default function Shelves({onBoxClick}) {
           {/* The shelf itself */}
           <mesh geometry={shelfGeometry} material={shelfMaterial} />
 
-          <ShelfItem title="PROJECTS" position={[-1, 0, 0]} onClick={() => onBoxClick(0)} />
-          <ShelfItem title="CONTACT" position={[0, 0, 0]} onClick={() => onBoxClick(1)} />
+          <ShelfItem title="PROJECTS" position={[-1, 0, 0]} onItemClick={onItemClick} />
+          <ShelfItem title="CONTACT" position={[0, 0, 0]} onItemClick={onItemClick} />
         </group>
     </group>
   );

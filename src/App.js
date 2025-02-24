@@ -73,7 +73,7 @@ function App() {
           />
 
           {/* Shelves is optional; remove if you don’t need it */}
-          <Shelves onClick={handleStartSequence}/>
+          <Shelves onItemClick={handleBoxClicked}/>
         </Canvas>
 
         {/* Button to start the sequence */}

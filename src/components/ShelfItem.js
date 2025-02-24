@@ -11,7 +11,7 @@ import { Bloom, Glitch } from "@react-three/postprocessing";
  * @param {array} [position] - optional [x,y,z] for item placement
  * @param {function} [onClick] - callback when the item is clicked
  */
-export default function ShelfItem({ title, position = [0, 0, 0], onClick }) {
+export default function ShelfItem({ title, position = [0, 0, 0], onItemClick }) {
   const groupRef = useRef();
 
   // Load geometry with STLLoader
@@ -25,15 +25,15 @@ export default function ShelfItem({ title, position = [0, 0, 0], onClick }) {
   });
 
   return (
-    <group ref={groupRef} position={position} scale={0.004} >
+    <group 
+    ref={groupRef} 
+    position={position} 
+    scale={0.004} 
+    onPointerDown={()=>onItemClick(1)}>
       {/* Clickable mesh for the STL */}
       <mesh
         geometry={geometry}
         material={material}
-        onPointerDown={(e) => {
-          e.stopPropagation(); 
-          if (onClick) onClick();
-        }}
         rotation={[0, Math.PI/2, 0]}
       >
         {/* Adjust scale to match your scene units if needed */}
