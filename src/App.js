@@ -68,7 +68,7 @@ function App() {
 
         {/* RobotModel with internal sequence handling */}
           <RobotModel
-            urdfPath="/assets/pf400_description/urdf/PF400.urdf"
+            urdfPath= {process.env.PUBLIC_URL + "/assets/pf400_description/urdf/PF400.urdf"}
             poseSequence={poseSequence}
             onSequenceComplete={handleSequenceComplete}
           />

@@ -14,7 +14,7 @@ export default function ShelfItem({ title, position = [0, 0, 0], onItemClick }) 
   const groupRef = useRef();
 
   // Load geometry with STLLoader
-  const geometry = useLoader(STLLoader, '/assets/12wellplate_base.stl');
+  const geometry = useLoader(STLLoader, process.env.PUBLIC_URL + "/assets/12wellplate_base.stl"); 
 
   // Optional: set a default material, or pass as a prop if you want
   const material = new THREE.MeshStandardMaterial({
@@ -47,7 +47,7 @@ export default function ShelfItem({ title, position = [0, 0, 0], onItemClick }) 
         anchorX="center"
         anchorY="bottom"
         textAlign="center"
-        font='/fonts/VT323-Regular.ttf'
+        font= {process.env.PUBLIC_URL + '/fonts/VT323-Regular.ttf'}
       >
         {title}
       </Text>
