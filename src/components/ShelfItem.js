@@ -1,9 +1,8 @@
 import React, { useRef } from "react";
 import { useLoader } from "@react-three/fiber";
-import { EffectComposer, STLLoader } from "three-stdlib";
+import { STLLoader } from "three-stdlib";
 import { Text } from "@react-three/drei";
 import * as THREE from "three";
-import { Bloom, Glitch } from "@react-three/postprocessing";
 
 /**
  * ShelfItem
@@ -43,11 +42,12 @@ export default function ShelfItem({ title, position = [0, 0, 0], onItemClick }) 
       {/* Floating text title */}
       <Text
         position={[25, 80, -80]} // Y offset above the item
-        fontSize={40}
+        fontSize={50}
         color="white"
         anchorX="center"
         anchorY="bottom"
         textAlign="center"
+        font='/fonts/VT323-Regular.ttf'
       >
         {title}
       </Text>

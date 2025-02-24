@@ -32,7 +32,10 @@ export default function Shelves({onItemClick}) {
           <mesh geometry={shelfGeometry} material={shelfMaterial} />
 
           <ShelfItem title="PROJECTS" position={[-1, 0, 0]} onItemClick={onItemClick} />
-          <ShelfItem title="CONTACT" position={[0, 0, 0]} onItemClick={onItemClick} />
+          <ShelfItem title="ABOUT" position={[0, 0, 0]} onItemClick={onItemClick} />
+          <ShelfItem title="CONTACT" position={[1, 0, 0]} onItemClick={onItemClick} />
+          <ShelfItem title="RESUME" position={[2, 0, 0]} onItemClick={onItemClick} />
+
         </group>
     </group>
   );
