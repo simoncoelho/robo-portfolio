@@ -13,6 +13,11 @@ function App() {
     const poseAboutSafe = { J1: .34,    J2: -0.35,   J3: 1.67,   J4: .23,   J5: 0.1,   J6: -.5 };
     const poseProjects = { J1: .34,    J2: 0.17,   J3: 1.2,   J4: .22,   J5: 0.1,   J6: -1 };
     const poseProjectsSafe = { J1: .34,    J2: -0.35,   J3: 1.67,   J4: .23,   J5: 0.1,   J6: -1 };
+    const poseResume = { J1: .34,    J2: 0.17,   J3: 1.2,   J4: .22,   J5: 0.1,   J6: 0.5 };
+    const poseResumeSafe = { J1: .34,    J2: -0.35,   J3: 1.67,   J4: .23,   J5: 0.1,   J6: 0.5 };
+    const poseContact = { J1: .34,    J2: 0.17,   J3: 1.2,   J4: .22,   J5: 0.1,   J6: 0.0 };
+    const poseContactSafe = { J1: .34,    J2: -0.35,   J3: 1.67,   J4: .23,   J5: 0.1,   J6: 0.0 };
+
     const moveSafe = { J1: .34,    J2: -0.35,   J3: 1.67,   J4: .23,   J5: 0.1};
 
     const closeGripper = { J5: 0.03};
@@ -43,6 +48,10 @@ function App() {
         setPoseSequence([moveSafe, poseAboutSafe, poseAbout]);
       } else if (boxIndex === 'PROJECTS') {
         setPoseSequence([moveSafe, poseProjectsSafe, poseProjects]);
+      } else if (boxIndex === 'CONTACT') {
+        setPoseSequence([moveSafe, poseContactSafe, poseContact]);
+      } else if (boxIndex === 'RESUME') {
+        setPoseSequence([moveSafe, poseResumeSafe, poseResume]);
       } else {
         setPoseSequence([moveSafe]); // just do one pose
       }
