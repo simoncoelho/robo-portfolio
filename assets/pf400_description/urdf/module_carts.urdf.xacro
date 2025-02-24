@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot name="Module_Carts" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <!-- Links -->
+  <xacro:macro name="Module_Carts" params = "prefix">
+  
+
+  <link name="${prefix}pf400_cart">
+    <visual>
+      <origin xyz="-1.592 0.2605 -0.015" rpy="1.5708 0 0"/>
+      <geometry>
+        <mesh filename="package://pf400_description/meshes/pf400_table.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="darkbluegreen"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://pf400_description/meshes/pf400_table.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz="-1.592 0.261 -0.015" rpy="1.5708 0 0"/>
+    </collision>
+  </link>
+
+  <!-- Joints -->
+
+ 
+
+  </xacro:macro>
+
+</robot>
