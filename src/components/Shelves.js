@@ -5,10 +5,10 @@ import ShelfItem from "./ShelfItem";
 export default function Shelves({onItemClick}) {
   // Create your shelf geometry once
   const shelfGeometry = useMemo(() => {
-    const geo = new THREE.BoxGeometry(50, 0.05, 0.5);
+    const geo = new THREE.BoxGeometry(50, 0.05, 0.7);
 
     // The same transforms you previously applied at the geometry level
-    // geo.translate(0.3, -1, -1);
+    geo.translate(-0.3, -0.025, -.25);
     // geo.rotateY(Math.PI / 4);
 
     return geo;
