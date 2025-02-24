@@ -28,7 +28,7 @@ export default function ShelfItem({ title, position = [0, 0, 0], onItemClick }) 
     ref={groupRef} 
     position={position} 
     scale={0.004} 
-    onPointerDown={()=>onItemClick(1)}>
+    onPointerDown={()=>onItemClick(title)}>
       {/* Clickable mesh for the STL */}
       <mesh
         geometry={geometry}
