@@ -81,11 +81,6 @@ function RobotModel({ urdfPath, poseSequence = [], onSequenceComplete }) {
   useEffect(() => {
     const loader = new URDFLoader();
 
-    // Optional environment map
-    const envMap = new THREE.CubeTextureLoader()
-      .setPath("/env/") // change path if needed
-      .load(["px.jpg", "nx.jpg", "py.jpg", "ny.jpg", "pz.jpg", "nz.jpg"]);
-
     loader.load(urdfPath, (robot) => {
       // Basic transforms
       robot.rotateX(-Math.PI / 2);
@@ -93,31 +88,6 @@ function RobotModel({ urdfPath, poseSequence = [], onSequenceComplete }) {
       robot.translateZ(-1);
       robot.translateY(-.8);
       robot.scale.set(2, 2, 2);
-
-      // Assign materials
-      robot.traverse((child) => {
-        if (child.geometry) {
-          let newMaterial;
-          if (child.name.toLowerCase().includes("finger")) {
-            newMaterial = new THREE.MeshStandardMaterial({
-              color: 0x999999,
-              metalness: 0.8,
-              roughness: 0.2,
-              envMap: envMap,
-              envMapIntensity: 1.0,
-            });
-          } else {
-            newMaterial = new THREE.MeshStandardMaterial({
-              color: 0xffd700, // gold
-              metalness: 1.0,
-              roughness: 0.3,
-              envMap: envMap,
-              envMapIntensity: 1.0,
-            });
-          }
-          child.material = newMaterial;
-        }
-      });
 
       // Attach to the scene
       if (robotRef.current) {
