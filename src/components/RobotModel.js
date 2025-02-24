@@ -89,8 +89,9 @@ function RobotModel({ urdfPath, poseSequence = [], onSequenceComplete }) {
     loader.load(urdfPath, (robot) => {
       // Basic transforms
       robot.rotateX(-Math.PI / 2);
-      robot.rotateZ(Math.PI / 4);
-      robot.translateZ(-2);
+      // robot.rotateZ(Math.PI / 2);
+      robot.translateZ(-1);
+      robot.translateY(-.8);
       robot.scale.set(2, 2, 2);
 
       // Assign materials

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sphere } from "@react-three/drei";
-import { EffectComposer } from "@react-three/postprocessing";
+import { Bloom, EffectComposer, Glitch } from "@react-three/postprocessing";
 import Shelves from "./components/Shelves"; // optional component, remove if you don’t need it
 import RobotModel from "./components/RobotModel";
 import "./App.css";
+import HeaderBar from "./components/HeaderBar";
 
 function App() {
     // Poses
@@ -29,20 +30,27 @@ function App() {
     // setSequencePoses([]);
   };
 
+    // Called by Shelves when a box is clicked
+    const handleBoxClicked = (boxIndex) => {
+      console.log("Box clicked:", boxIndex);
+  
+      // For instance, you can load different sequences depending on which box
+      if (boxIndex === 0) {
+        setPoseSequence([poseA, poseB, poseC]);
+      } else if (boxIndex === 1) {
+        setPoseSequence([poseC, poseB, poseA]);
+      } else {
+        setPoseSequence([poseA]); // just do one pose
+      }
+    };
+  
+
   return (
     <div className="app-container">
-      <header className="header">
-        <nav>
-          <ul>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
-      </header>
+      <HeaderBar />
 
       <div className="viewer">
-        <Canvas camera={{ position: [3, -1, 3] }} style={{ background: "#000" }}>
+        <Canvas camera={{ position: [0, .7, 5], fov: 60, }} style={{ background: "#000" } }>
           {/* OrbitControls with no autoRotate */}
           <OrbitControls 
             autoRotate={false}
@@ -52,17 +60,9 @@ function App() {
           />
 
           {/* Some test spheres for lighting/visual reference */}
-          <Sphere args={[0.08]} position={[0, 1.5, 0]}>
+          <Sphere args={[0.08]} position={[0, 3, 1]}>
             <meshBasicMaterial color="white" />
-            <pointLight intensity={5} color="white" />
-          </Sphere>
-          <Sphere args={[0.08]} position={[0, 1.5, 2]}>
-            <meshBasicMaterial color="white" />
-            <pointLight intensity={5} color="white" />
-          </Sphere>
-          <Sphere args={[0.08]} position={[0, 1.5, -2]}>
-            <meshBasicMaterial color="white" />
-            <pointLight intensity={5} color="white" />
+            <pointLight intensity={1} color="white" />
           </Sphere>
 
         {/* RobotModel with internal sequence handling */}
@@ -73,20 +73,14 @@ function App() {
           />
 
           {/* Shelves is optional; remove if you don’t need it */}
-          <Shelves />
-
-          {/* Post-processing is optional.  Add if desired:
-          <EffectComposer>
-            ...
-          </EffectComposer>
-          */}
+          <Shelves onClick={handleStartSequence}/>
         </Canvas>
 
         {/* Button to start the sequence */}
       </div>
-      <button onClick={handleStartSequence} style={{ marginTop: "1rem" }}>
+      {/* <button onClick={handleStartSequence} style={{ marginTop: "1rem" }}>
         Start Sequence
-      </button>
+      </button> */}
     </div>
 
   );
