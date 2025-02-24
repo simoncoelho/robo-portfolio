@@ -43,7 +43,7 @@ export default function ShelfItem({ title, position = [0, 0, 0], onItemClick }) 
       {/* Floating text title */}
       <Text
         position={[25, 80, -80]} // Y offset above the item
-        fontSize={50}
+        fontSize={40}
         color="white"
         anchorX="center"
         anchorY="bottom"
