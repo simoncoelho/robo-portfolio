@@ -14,8 +14,8 @@ class PoseSequenceRunner {
     this.complete = false;
 
     // Tweak as needed:
-    this.lerpFactor = 0.01;   // bigger = faster movement
-    this.threshold = 0.001;   // bigger = easier to consider "close enough"
+    this.lerpFactor = 0.05;   // bigger = faster movement
+    this.threshold = 0.005;   // bigger = easier to consider "close enough"
     this.requiredStableFrames = 2; 
     this.framesStable = 0;    
   }
@@ -42,7 +42,6 @@ class PoseSequenceRunner {
 
       const diff = Math.abs(newValue - targetValue);
       if (diff > this.threshold) {
-        console.log(`Joint ${jointName} out of range: ${diff}`);
         allInRange = false;
       }
     }
