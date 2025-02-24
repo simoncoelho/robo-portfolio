@@ -8,9 +8,13 @@ import HeaderBar from "./components/HeaderBar";
 
 function App() {
     // Poses
-    const poseA = { J1: 0,    J2: 0,   J3: 0.2,   J4: 0,   J5: 0,   J6: 0 };
-    const poseB = { J1: 0.5,  J2: 1.0, J3: 0.16, J4: 0.75, J6: 0.8 };
-    const poseC = { J1: 0.3, J2: 0.8, J3: 0.0,  J4: -1.0, J6: -0.2 };
+    // J1 height, J6 rail, J5 gripper
+    const poseAbout = { J1: .34,    J2: 0.17,   J3: 1.2,   J4: .22,   J5: 0.1,   J6: -.5 };
+    const poseAboutSafe = { J1: .34,    J2: -0.35,   J3: 1.67,   J4: .23,   J5: 0.1,   J6: -.5 };
+    const poseProjects = { J1: .34,    J2: 0.17,   J3: 1.2,   J4: .22,   J5: 0.1,   J6: -1 };
+    const poseProjectsSafe = { J1: .34,    J2: -0.35,   J3: 1.67,   J4: .23,   J5: 0.1,   J6: -1 };
+    const moveSafe = { J1: .34,    J2: -0.35,   J3: 1.67,   J4: .23,   J5: 0.1};
+
     const closeGripper = { J5: 0.03};
     const openGripper = { J5: 0.065};
     
@@ -19,7 +23,7 @@ function App() {
   
     const handleStartSequence = () => {
       // Pass the entire array directly to RobotModel
-      setPoseSequence([poseA, openGripper, poseB, poseC, closeGripper, poseA, openGripper, poseC]);
+      setPoseSequence([poseAbout]);
     };
   
   // Called when the last pose finishes
@@ -33,13 +37,14 @@ function App() {
     const handleBoxClicked = (boxIndex) => {
       console.log("Box clicked:", boxIndex);
   
+      setPoseSequence([poseAboutSafe, poseAbout]);
       // For instance, you can load different sequences depending on which box
-      if (boxIndex === 0) {
-        setPoseSequence([poseA, poseB, poseC]);
-      } else if (boxIndex === 1) {
-        setPoseSequence([poseC, poseB, poseA]);
+      if (boxIndex === 'ABOUT') {
+        setPoseSequence([moveSafe, poseAboutSafe, poseAbout]);
+      } else if (boxIndex === 'PROJECTS') {
+        setPoseSequence([moveSafe, poseProjectsSafe, poseProjects]);
       } else {
-        setPoseSequence([poseA]); // just do one pose
+        setPoseSequence([moveSafe]); // just do one pose
       }
     };
   
