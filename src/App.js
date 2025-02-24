@@ -50,7 +50,7 @@ function App() {
 
       <div className="viewer">
         <Canvas 
-          camera={{ position: [-3, 2, 4], fov: 30, }} 
+          camera={{ position: [-3, 2, 4], fov: 40, }} 
           style={{ background: "#000" } }>
           {/* OrbitControls with no autoRotate */}
           <OrbitControls 
