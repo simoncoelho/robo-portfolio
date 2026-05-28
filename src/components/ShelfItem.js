@@ -1,8 +1,5 @@
 import React, { useRef } from "react";
-import { useLoader } from "@react-three/fiber";
-import { STLLoader } from "three-stdlib";
 import { Text } from "@react-three/drei";
-import * as THREE from "three";
 
 /**
  * ShelfItem
@@ -10,34 +7,35 @@ import * as THREE from "three";
  * @param {array} [position] - optional [x,y,z] for item placement
  * @param {function} [onClick] - callback when the item is clicked
  */
-export default function ShelfItem({ title, position = [0, 0, 0], onItemClick }) {
+export default function ShelfItem({ title, position = [0, 0, 0], onItemClick, plateAssets }) {
   const groupRef = useRef();
-
-  // Load geometry with STLLoader
-  const geometry = useLoader(STLLoader, '/robo-portfolio/assets/12wellplate_base.stl');
-
-  // Optional: set a default material, or pass as a prop if you want
-  const material = new THREE.MeshStandardMaterial({
-    color: 0xff0000,
-    metalness: 0.2,
-    roughness: 0.8,
-  });
+  const handleClick = (event) => {
+    event.stopPropagation();
+    onItemClick(title);
+  };
 
   return (
     <group 
     ref={groupRef} 
     position={position} 
     scale={0.004} 
-    onPointerDown={()=>onItemClick(title)}>
+    onClick={handleClick}>
       {/* Clickable mesh for the STL */}
       <mesh
-        geometry={geometry}
-        material={material}
+        geometry={plateAssets.geometry}
+        material={plateAssets.material}
         rotation={[0, Math.PI/2, 0]}
-      >
-        {/* Adjust scale to match your scene units if needed */}
-        <primitive object={geometry} attach="geometry"/>
-      </mesh>
+      />
+      <lineSegments
+        geometry={plateAssets.wireframeGeometry}
+        material={plateAssets.helperLineMaterial}
+        rotation={[0, Math.PI/2, 0]}
+      />
+      <lineSegments
+        geometry={plateAssets.edgesGeometry}
+        material={plateAssets.edgeLineMaterial}
+        rotation={[0, Math.PI/2, 0]}
+      />
 
       {/* Floating text title */}
       <Text

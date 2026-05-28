@@ -55,3 +55,181 @@ html, body, #root {
   border: none;
   border-radius: 5px;
 }
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap");
+
+.section-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  box-sizing: border-box;
+  overflow: auto;
+  padding: 32px 56px 56px;
+  color: rgba(245, 245, 245, 0.92);
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.86) 50%, rgba(0, 0, 0, 0.68) 100%);
+  font-family: "DM Mono", "Courier New", monospace;
+  animation: section-panel-fade-in 700ms ease-out both;
+}
+
+.section-panel__chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 12vh;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.8rem;
+  text-transform: lowercase;
+}
+
+.section-panel__chrome p {
+  margin: 0;
+}
+
+.section-panel__close {
+  color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+  border: 0;
+  padding: 8px 0 8px 24px;
+  font: inherit;
+  font-size: clamp(1.1rem, 2vw, 1.8rem);
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+.section-panel__close:hover {
+  color: #fff;
+}
+
+.section-panel__content {
+  width: min(760px, 100%);
+  margin-left: clamp(0px, 10vw, 160px);
+}
+
+.section-panel h1 {
+  margin: 0 0 48px;
+  font-size: clamp(2.4rem, 8vw, 7rem);
+  font-weight: 300;
+  line-height: 0.95;
+  text-transform: lowercase;
+}
+
+.section-panel h2 {
+  margin: 0 0 8px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: lowercase;
+}
+
+.section-panel p {
+  margin: 0 0 22px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.project-list {
+  display: grid;
+  gap: 34px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-item {
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.project-item a {
+  display: grid;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-item a:hover strong {
+  color: #fff;
+}
+
+.project-item span {
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 0.76rem;
+  font-weight: 500;
+  text-transform: lowercase;
+}
+
+.project-item strong {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  font-weight: 400;
+}
+
+.project-item p {
+  max-width: 640px;
+  margin: 0;
+}
+
+.resume-list {
+  display: grid;
+  gap: 30px;
+}
+
+.resume-list section {
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.resume-list p {
+  max-width: 640px;
+  margin-bottom: 0;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+}
+
+.contact-link:hover {
+  color: #fff;
+}
+
+.contact-link span {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 300;
+  text-transform: lowercase;
+}
+
+@media (max-width: 720px) {
+  .section-panel {
+    padding: 24px 22px 40px;
+  }
+
+  .section-panel__chrome {
+    margin-bottom: 10vh;
+  }
+
+  .section-panel__content {
+    margin-left: 0;
+  }
+
+  .section-panel h1 {
+    margin-bottom: 34px;
+  }
+}
+
+@keyframes section-panel-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

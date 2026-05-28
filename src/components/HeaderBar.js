@@ -1,6 +1,6 @@
 // HeaderBar.jsx
 import React from "react";
-import { FaLinkedin, fax } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 import "./HeaderBar.css"; // We'll define basic styling below
 import { TbBrandX } from "react-icons/tb";
 

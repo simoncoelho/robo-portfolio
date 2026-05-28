@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Sphere } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import Shelves from "./components/Shelves"; // optional component, remove if you don’t need it
 import RobotModel from "./components/RobotModel";
 import "./App.css";
 import HeaderBar from "./components/HeaderBar";
+import SectionPanel from "./components/SectionPanel";
 
 function App() {
     // Poses
@@ -20,16 +21,33 @@ function App() {
 
     const moveSafe = { J1: .34,    J2: -0.35,   J3: 1.67,   J4: .23,   J5: 0.1};
 
-    const closeGripper = { J5: 0.03};
-    const openGripper = { J5: 0.065};
-    
-  
     const [poseSequence, setPoseSequence] = useState([]);
-  
-    const handleStartSequence = () => {
-      // Pass the entire array directly to RobotModel
-      setPoseSequence([poseAbout]);
-    };
+    const [shouldLoadRobot, setShouldLoadRobot] = useState(false);
+    const [activeSection, setActiveSection] = useState(null);
+    const [pendingSection, setPendingSection] = useState(null);
+
+    useEffect(() => {
+      const loadRobot = () => setShouldLoadRobot(true);
+
+      if ("requestIdleCallback" in window) {
+        const idleId = window.requestIdleCallback(loadRobot, { timeout: 1500 });
+        return () => window.cancelIdleCallback(idleId);
+      }
+
+      const timeoutId = window.setTimeout(loadRobot, 800);
+      return () => window.clearTimeout(timeoutId);
+    }, []);
+
+    useEffect(() => {
+      if (!pendingSection) return undefined;
+
+      const timeoutId = window.setTimeout(() => {
+        setActiveSection(pendingSection);
+        setPendingSection(null);
+      }, 300);
+
+      return () => window.clearTimeout(timeoutId);
+    }, [pendingSection]);
   
   // Called when the last pose finishes
   const handleSequenceComplete = () => {
@@ -38,11 +56,19 @@ function App() {
     // setSequencePoses([]);
   };
 
+  const handleCloseSection = () => {
+    setActiveSection(null);
+    setPendingSection(null);
+    setPoseSequence([]);
+  };
+
     // Called by Shelves when a box is clicked
     const handleBoxClicked = (boxIndex) => {
       console.log("Box clicked:", boxIndex);
-  
-      setPoseSequence([poseAboutSafe, poseAbout]);
+      setShouldLoadRobot(true);
+      setActiveSection(null);
+      setPendingSection(boxIndex);
+
       // For instance, you can load different sequences depending on which box
       if (boxIndex === 'ABOUT') {
         setPoseSequence([moveSafe, poseAboutSafe, poseAbout]);
@@ -68,31 +94,33 @@ function App() {
           style={{ background: "#000" } }>
           {/* OrbitControls with no autoRotate */}
           <OrbitControls 
+            enabled={!activeSection}
             autoRotate={false}
             // Optionally limit how close/far you can zoom
             minDistance={0.5}
             maxDistance={5}
           />
 
-          {/* Some test spheres for lighting/visual reference */}
-          <Sphere args={[0.08]} position={[0, 3, 1]}>
-            <meshBasicMaterial color="white" />
-            <pointLight intensity={1} color="white" />
-          </Sphere>
+          <pointLight position={[0, 3, 1]} intensity={1} color="white" />
 
         {/* RobotModel with internal sequence handling */}
-          <RobotModel
-            urdfPath= {process.env.PUBLIC_URL + "/assets/pf400_description/urdf/PF400.urdf"}
-            poseSequence={poseSequence}
-            onSequenceComplete={handleSequenceComplete}
-          />
+          {shouldLoadRobot && (
+            <RobotModel
+              urdfPath= {process.env.PUBLIC_URL + "/assets/pf400_description/urdf/PF400.urdf"}
+              poseSequence={poseSequence}
+              onSequenceComplete={handleSequenceComplete}
+            />
+          )}
 
           {/* Shelves is optional; remove if you don’t need it */}
-          <Shelves onItemClick={handleBoxClicked}/>
+          <Suspense fallback={null}>
+            <Shelves onItemClick={handleBoxClicked}/>
+          </Suspense>
         </Canvas>
 
         {/* Button to start the sequence */}
       </div>
+      <SectionPanel section={activeSection} onClose={handleCloseSection} />
       {/* <button onClick={handleStartSequence} style={{ marginTop: "1rem" }}>
         Start Sequence
       </button> */}

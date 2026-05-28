@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import URDFLoader from "urdf-loader";
 import * as THREE from "three";
@@ -14,7 +14,7 @@ class PoseSequenceRunner {
     this.complete = false;
 
     // Tweak as needed:
-    this.lerpFactor = 0.05;   // bigger = faster movement
+    this.lerpFactor = 0.25;   // bigger = faster movement
     this.threshold = 0.005;   // bigger = easier to consider "close enough"
     this.requiredStableFrames = 2; 
     this.framesStable = 0;    
@@ -78,15 +78,16 @@ export default function RobotModel({
   // We'll remember the actual loaded robot object here
   const loadedRobotRef = useRef(null);
 
-  const [joints, setJoints] = useState({});
-  const [sequenceRunner, setSequenceRunner] = useState(null);
+  const jointsRef = useRef({});
+  const sequenceRunnerRef = useRef(null);
 
   // Load the URDF once
   useEffect(() => {
+    let isMounted = true;
     const loader = new URDFLoader();
     loader.load(urdfPath, (robot) => {
       // Only attach if we haven't already
-      if (!loadedRobotRef.current && robotRef.current) {
+      if (isMounted && !loadedRobotRef.current && robotRef.current) {
         loadedRobotRef.current = robot;
         // Basic transforms
         robot.rotateX(-Math.PI / 2);
@@ -107,22 +108,29 @@ export default function RobotModel({
           J5: robot.joints["J5"],
           J6: robot.joints["J6"],
         };
-        setJoints(loadedJoints);
+        jointsRef.current = loadedJoints;
       }
     });
+
+    return () => {
+      isMounted = false;
+    };
   }, [urdfPath]);
 
   // Whenever the user passes a new sequence, create or reset our runner
   useEffect(() => {
     if (poseSequence.length > 0) {
-      setSequenceRunner(new PoseSequenceRunner(poseSequence, onSequenceComplete));
+      sequenceRunnerRef.current = new PoseSequenceRunner(poseSequence, onSequenceComplete);
     } else {
-      setSequenceRunner(null);
+      sequenceRunnerRef.current = null;
     }
   }, [poseSequence, onSequenceComplete]);
 
   // Each frame, if we have a sequenceRunner, let it do its thing
   useFrame(() => {
+    const sequenceRunner = sequenceRunnerRef.current;
+    const joints = jointsRef.current;
+
     if (sequenceRunner && Object.keys(joints).length > 0) {
       sequenceRunner.update(joints);
     }
