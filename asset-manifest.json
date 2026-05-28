@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/robo-portfolio/static/css/main.b935321e.css",
-    "main.js": "/robo-portfolio/static/js/main.beb1b320.js",
+    "main.js": "/robo-portfolio/static/js/main.990fa8cc.js",
     "static/js/453.8c56e008.chunk.js": "/robo-portfolio/static/js/453.8c56e008.chunk.js",
     "index.html": "/robo-portfolio/index.html",
     "main.b935321e.css.map": "/robo-portfolio/static/css/main.b935321e.css.map",
-    "main.beb1b320.js.map": "/robo-portfolio/static/js/main.beb1b320.js.map",
+    "main.990fa8cc.js.map": "/robo-portfolio/static/js/main.990fa8cc.js.map",
     "453.8c56e008.chunk.js.map": "/robo-portfolio/static/js/453.8c56e008.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b935321e.css",
-    "static/js/main.beb1b320.js"
+    "static/js/main.990fa8cc.js"
   ]
 }
